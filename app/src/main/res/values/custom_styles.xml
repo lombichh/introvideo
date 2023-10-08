@@ -2,7 +2,7 @@
 <resources>
 
     <style name="RoundedSquare">
-        <item name="cornerSize">3%</item>
+        <item name="cornerSize">5%</item>
     </style>
 
 </resources>
