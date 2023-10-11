@@ -6,4 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".activities.SettingsActivity">
 
+    <EditText
+        android:id="@+id/update_password_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="@+id/update_password_edittext"
+        app:layout_constraintStart_toEndOf="@+id/update_password_edittext"
+        app:layout_constraintTop_toTopOf="@+id/update_password_edittext" />
+
+    <Button
+        android:id="@+id/get_password_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get password"
+        app:layout_constraintEnd_toEndOf="@+id/update_password_edittext"
+        app:layout_constraintStart_toStartOf="@+id/update_password_edittext"
+        app:layout_constraintTop_toBottomOf="@+id/update_password_edittext" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
