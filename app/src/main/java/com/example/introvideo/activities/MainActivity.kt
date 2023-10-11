@@ -1,9 +1,12 @@
-package com.example.introvideo
+package com.example.introvideo.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
+import com.example.introvideo.R
+import com.example.introvideo.utils.KeyStoreUtils
+import java.security.KeyStore
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,6 +28,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openSettings() {
-        startActivity(Intent(this, PasswordSettingsActivity::class.java))
+        if (KeyStoreUtils.existsPassword())
+            startActivity(Intent(this, PasswordSettingsActivity::class.java))
+        else startActivity(Intent(this, SettingsActivity::class.java))
     }
 }
