@@ -11,7 +11,15 @@ class SettingsPasswordUtils {
         val sharedPreferencesName: String = "IntroVideoSharedPreferences"
         val settingsPasswordId: String = "settings_password"
 
-        fun hashPassword(password: String): String {
+        fun isPasswordStored(context: Context): Boolean {
+            val sharedPreferences =
+                context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
+            val storedHashedPassword = sharedPreferences.getString(settingsPasswordId, "")
+
+            return storedHashedPassword != ""
+        }
+
+        private fun hashPassword(password: String): String {
             val messageDigest = MessageDigest.getInstance("SHA-256")
             val hashedPassword = messageDigest.digest(password.toByteArray())
             return Base64.encodeToString(hashedPassword, Base64.DEFAULT)
@@ -22,13 +30,19 @@ class SettingsPasswordUtils {
                 context.getSharedPreferences(sharedPreferencesName, Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
 
-            val hashedPassword = hashPassword(newPassword)
+            if (newPassword != "") {
+                // update password in shared preferences
+                val hashedPassword = hashPassword(newPassword)
+                editor.putString(settingsPasswordId, hashedPassword)
+            } else {
+                // remove password from shared preferences
+                editor.remove(settingsPasswordId)
+            }
 
-            editor.putString(settingsPasswordId, hashedPassword)
             editor.apply()
         }
 
-        fun isCorrectPassword(context: Context, enteredPassword: String): Boolean {
+        fun isPasswordCorrect(context: Context, enteredPassword: String): Boolean {
             val enteredHashedPassword = hashPassword(enteredPassword)
 
             val sharedPreferences: SharedPreferences =

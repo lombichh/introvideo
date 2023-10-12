@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import com.example.introvideo.R
+import com.example.introvideo.utils.SettingsPasswordUtils
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openSettings() {
-        startActivity(Intent(this, SettingsActivity::class.java))
+        // if password exists then open password settings activity before entering the settings
+        if (SettingsPasswordUtils.isPasswordStored(this))
+            startActivity(Intent(this, PasswordSettingsActivity::class.java))
+        else startActivity(Intent(this, SettingsActivity::class.java))
     }
 }

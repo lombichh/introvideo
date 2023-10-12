@@ -26,7 +26,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         getPasswordButton.setOnClickListener {
-            if (SettingsPasswordUtils.isCorrectPassword(this, passwordEditText.text.toString())) {
+            if (SettingsPasswordUtils.isPasswordCorrect(this, passwordEditText.text.toString())) {
                 Toast.makeText(this, "Correct Password", Toast.LENGTH_SHORT).show()
             } else Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show()
         }

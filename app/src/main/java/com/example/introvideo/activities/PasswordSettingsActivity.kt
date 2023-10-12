@@ -1,14 +1,17 @@
 package com.example.introvideo.activities
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.example.introvideo.R
+import com.example.introvideo.utils.SettingsPasswordUtils
 import java.security.KeyStore
 
 
@@ -68,7 +71,11 @@ class PasswordSettingsActivity : AppCompatActivity() {
             // check if password is correct
             // if correct, open settings activity
             // else, show error toast
+            val enteredPassword: String = passwordEditText.text.toString()
 
+            if (SettingsPasswordUtils.isPasswordCorrect(this, enteredPassword))
+                startActivity(Intent(this, SettingsActivity::class.java))
+            else Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show()
         }
 
         passwordEditText.requestFocus()
