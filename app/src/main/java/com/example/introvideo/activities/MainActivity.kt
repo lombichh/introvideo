@@ -28,8 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun openSettings() {
         // if password exists then open password settings activity before entering the settings
-        if (SettingsPasswordUtils.isPasswordStored(this))
+        /*if (SettingsPasswordUtils.isPasswordStored(this))
             startActivity(Intent(this, PasswordSettingsActivity::class.java))
-        else startActivity(Intent(this, SettingsActivity::class.java))
+        else startActivity(Intent(this, SettingsActivity::class.java))*/
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 }

@@ -17,18 +17,11 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun initUi() {
-        val passwordEditText: EditText = findViewById(R.id.update_password_edittext)
         val saveButton: Button = findViewById(R.id.save_button)
-        val getPasswordButton: Button = findViewById(R.id.get_password_button)
+        val passwordEditText: EditText = findViewById(R.id.password_edittext)
 
         saveButton.setOnClickListener{
             SettingsPasswordUtils.savePassword(this, passwordEditText.text.toString())
-        }
-
-        getPasswordButton.setOnClickListener {
-            if (SettingsPasswordUtils.isPasswordCorrect(this, passwordEditText.text.toString())) {
-                Toast.makeText(this, "Correct Password", Toast.LENGTH_SHORT).show()
-            } else Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show()
         }
     }
 }
