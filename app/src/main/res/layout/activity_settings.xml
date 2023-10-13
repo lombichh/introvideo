@@ -38,7 +38,7 @@
         android:layout_width="110dp"
         android:layout_height="47dp"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/rounded_rect"
+        android:background="@drawable/rounded_rect_10dp"
         android:fontFamily="@font/sofia_pro_semibold"
         android:foreground="@drawable/rounded_rect_10dp_ripple_effect"
         android:includeFontPadding="false"
@@ -51,12 +51,15 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_textview">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="50dp"
+            android:paddingBottom="50dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -65,77 +68,537 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:fontFamily="@font/sofia_pro_medium"
+                    android:text="@string/videos"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="45sp" />
 
                 <TextView
-                    android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:text="@string/select_videos_description"
+                    android:textColor="@color/gray"
+                    android:textSize="20sp" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/video1_settings_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:layout_marginTop="30dp">
 
-                <LinearLayout
+                    <FrameLayout
+                        android:id="@+id/video1_path_framelayout"
+                        android:layout_width="250dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/left_rounded_rect"
+                        android:backgroundTint="@color/light_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/video1_path_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/select_video1_framelayout"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/right_rounded_rect"
+                        android:backgroundTint="@color/green"
+                        android:foreground="@drawable/right_rounded_rect_ripple_effect"
+                        app:layout_constraintBottom_toBottomOf="@+id/video1_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/video1_path_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video1_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/select_video1_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:text="@string/select_video"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/cover1_framelayout"
+                        android:layout_width="250dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/left_rounded_rect"
+                        android:backgroundTint="@color/light_gray"
+                        app:layout_constraintBottom_toBottomOf="@+id/video1_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/select_video1_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video1_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/cover1_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/select_cover1_framelayout"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/right_rounded_rect"
+                        android:backgroundTint="@color/green"
+                        android:foreground="@drawable/right_rounded_rect_ripple_effect"
+                        app:layout_constraintBottom_toBottomOf="@+id/video1_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/cover1_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video1_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/select_cover1_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:text="@string/select_cover"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/video1_visibility_imageview"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:foreground="@drawable/circle_ripple_effect"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/video1_path_framelayout"
+                        app:srcCompat="@drawable/hidden"
+                        app:tint="@color/gray" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/video2_settings_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:layout_marginTop="30dp">
 
-                <LinearLayout
+                    <FrameLayout
+                        android:id="@+id/video2_path_framelayout"
+                        android:layout_width="250dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/left_rounded_rect"
+                        android:backgroundTint="@color/light_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/video2_path_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/select_video2_framelayout"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/right_rounded_rect"
+                        android:backgroundTint="@color/green"
+                        android:foreground="@drawable/right_rounded_rect_ripple_effect"
+                        app:layout_constraintBottom_toBottomOf="@+id/video2_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/video2_path_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video2_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/select_video2_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:text="@string/select_video"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/cover2_framelayout"
+                        android:layout_width="250dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/left_rounded_rect"
+                        android:backgroundTint="@color/light_gray"
+                        app:layout_constraintBottom_toBottomOf="@+id/video2_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/select_video2_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video2_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/cover2_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/select_cover2_framelayout"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/right_rounded_rect"
+                        android:backgroundTint="@color/green"
+                        android:foreground="@drawable/right_rounded_rect_ripple_effect"
+                        app:layout_constraintBottom_toBottomOf="@+id/video2_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/cover2_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video2_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/select_cover2_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:text="@string/select_cover"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/video2_visibility_imageview"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:foreground="@drawable/circle_ripple_effect"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/video2_path_framelayout"
+                        app:srcCompat="@drawable/hidden"
+                        app:tint="@color/gray" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/video3_settings_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:layout_marginTop="30dp">
 
-                <LinearLayout
+                    <FrameLayout
+                        android:id="@+id/video3_path_framelayout"
+                        android:layout_width="250dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/left_rounded_rect"
+                        android:backgroundTint="@color/light_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/video3_path_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/select_video3_framelayout"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/right_rounded_rect"
+                        android:backgroundTint="@color/green"
+                        android:foreground="@drawable/right_rounded_rect_ripple_effect"
+                        app:layout_constraintBottom_toBottomOf="@+id/video3_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/video3_path_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video3_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/select_video3_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:text="@string/select_video"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/cover3_framelayout"
+                        android:layout_width="250dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/left_rounded_rect"
+                        android:backgroundTint="@color/light_gray"
+                        app:layout_constraintBottom_toBottomOf="@+id/video3_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/select_video3_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video3_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/cover3_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/select_cover3_framelayout"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/right_rounded_rect"
+                        android:backgroundTint="@color/green"
+                        android:foreground="@drawable/right_rounded_rect_ripple_effect"
+                        app:layout_constraintBottom_toBottomOf="@+id/video3_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/cover3_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video3_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/select_cover3_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:text="@string/select_cover"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/video3_visibility_imageview"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:foreground="@drawable/circle_ripple_effect"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/video3_path_framelayout"
+                        app:srcCompat="@drawable/hidden"
+                        app:tint="@color/gray" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/video4_settings_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:layout_marginTop="30dp">
+
+                    <FrameLayout
+                        android:id="@+id/video4_path_framelayout"
+                        android:layout_width="250dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/left_rounded_rect"
+                        android:backgroundTint="@color/light_gray"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/video4_path_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/select_video4_framelayout"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/right_rounded_rect"
+                        android:backgroundTint="@color/green"
+                        android:foreground="@drawable/right_rounded_rect_ripple_effect"
+                        app:layout_constraintBottom_toBottomOf="@+id/video4_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/video4_path_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video4_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/select_video4_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:text="@string/select_video"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/cover4_framelayout"
+                        android:layout_width="250dp"
+                        android:layout_height="70dp"
+                        android:layout_marginStart="30dp"
+                        android:background="@drawable/left_rounded_rect"
+                        android:backgroundTint="@color/light_gray"
+                        app:layout_constraintBottom_toBottomOf="@+id/video4_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/select_video4_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video4_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/cover4_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:textColor="@color/dark_gray"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/select_cover4_framelayout"
+                        android:layout_width="200dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/right_rounded_rect"
+                        android:backgroundTint="@color/green"
+                        android:foreground="@drawable/right_rounded_rect_ripple_effect"
+                        app:layout_constraintBottom_toBottomOf="@+id/video4_path_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/cover4_framelayout"
+                        app:layout_constraintTop_toTopOf="@+id/video4_path_framelayout">
+
+                        <TextView
+                            android:id="@+id/select_cover4_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/sofia_pro_medium"
+                            android:includeFontPadding="false"
+                            android:text="@string/select_cover"
+                            android:textColor="@color/white"
+                            android:textSize="24sp" />
+
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/video4_visibility_imageview"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:foreground="@drawable/circle_ripple_effect"
+                        android:padding="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/video4_path_framelayout"
+                        app:srcCompat="@drawable/hidden"
+                        app:tint="@color/gray" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="70dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:fontFamily="@font/sofia_pro_medium"
+                    android:text="@string/audio"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="45sp" />
 
                 <TextView
-                    android:id="@+id/textView6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:text="@string/select_audio_description"
+                    android:textColor="@color/gray"
+                    android:textSize="20sp" />
+
+                <SeekBar
+                    android:id="@+id/audio_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:progressDrawable="@drawable/custom_seekbar"
+                    android:thumb="@drawable/custom_thumb" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="60dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:fontFamily="@font/sofia_pro_medium"
+                    android:text="@string/password"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="45sp" />
 
                 <TextView
-                    android:id="@+id/textView8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_marginTop="3dp"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:text="@string/change_password_description"
+                    android:textColor="@color/gray"
+                    android:textSize="20sp" />
 
                 <LinearLayout
-                    android:layout_width="600dp"
-                    android:layout_height="110dp"
-                    android:background="@drawable/left_rounded_rect"
+                    android:layout_width="550dp"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/rounded_rect_20dp"
                     android:backgroundTint="@color/light_gray"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
@@ -144,34 +607,26 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginEnd="30dp"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/lock"
-                        app:tint="@color/green" />
-
                     <EditText
                         android:id="@+id/password_edittext"
-                        android:layout_width="391dp"
+                        android:layout_width="415dp"
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:ems="10"
                         android:fontFamily="@font/sofia_pro_regular"
                         android:includeFontPadding="false"
                         android:inputType="text|textPassword"
+                        android:layout_marginStart="30dp"
                         android:textColor="@color/white"
                         android:textCursorDrawable="@drawable/white_cursor"
-                        android:textSize="50sp" />
+                        android:textSize="40sp" />
 
                     <ImageView
                         android:id="@+id/visibility_imageview"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="30dp"
-                        android:layout_marginEnd="30dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="20dp"
                         android:foreground="@drawable/circle_ripple_effect"
                         android:padding="5dp"
                         app:srcCompat="@drawable/hidden"
