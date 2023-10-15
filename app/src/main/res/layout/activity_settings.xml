@@ -661,7 +661,7 @@
                         android:textSize="40sp" />
 
                     <ImageView
-                        android:id="@+id/visibility_imageview"
+                        android:id="@+id/password_visibility_imageview"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
                         android:layout_marginStart="40dp"

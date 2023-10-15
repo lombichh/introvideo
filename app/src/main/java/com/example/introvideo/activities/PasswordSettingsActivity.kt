@@ -21,7 +21,7 @@ class PasswordSettingsActivity : AppCompatActivity() {
     var keyStore: KeyStore? = null
 
     // ui
-    var isPasswordVisible: Boolean = false
+    var passwordVisibility: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class PasswordSettingsActivity : AppCompatActivity() {
     private fun initUi() {
         val backImageView: ImageView = findViewById(R.id.back_imageview)
         val passwordEditText: EditText = findViewById(R.id.password_edittext)
-        val visibilityImageView: ImageView = findViewById(R.id.visibility_imageview)
+        val visibilityImageView: ImageView = findViewById(R.id.password_visibility_imageview)
         val enterFrameLayout: FrameLayout = findViewById(R.id.enter_framelayout)
 
         backImageView.setOnClickListener{
@@ -42,28 +42,28 @@ class PasswordSettingsActivity : AppCompatActivity() {
 
         visibilityImageView.setOnClickListener{
             // change password visibility
-            if (isPasswordVisible) {
+            if (passwordVisibility) {
                 visibilityImageView.setImageResource(R.drawable.hidden)
                 passwordEditText.inputType =
                     InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
 
-                // change font to sofia pro regular to because type_class_text
+                // change font to sofia pro regular because type_class_text
                 // automatically change it to default font
                 val typeface: Typeface? = ResourcesCompat.getFont(this, R.font.sofia_pro_regular)
                 passwordEditText.setTypeface(typeface)
 
-                isPasswordVisible = false
+                passwordVisibility = false
             } else {
                 visibilityImageView.setImageResource(R.drawable.visible)
                 passwordEditText.inputType =
                     InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
 
-                // change font to sofia pro regular to because type_class_text
+                // change font to sofia pro regular because type_class_text
                 // automatically change it to default font
                 val typeface: Typeface? = ResourcesCompat.getFont(this, R.font.sofia_pro_regular)
                 passwordEditText.setTypeface(typeface)
 
-                isPasswordVisible = true
+                passwordVisibility = true
             }
         }
 

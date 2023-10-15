@@ -6,11 +6,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.Typeface
 import android.graphics.drawable.LayerDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
@@ -18,11 +19,10 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.example.introvideo.R
 import com.example.introvideo.utils.SettingsUtils
 
@@ -62,6 +62,7 @@ class SettingsActivity : AppCompatActivity() {
     lateinit var audioLevelSeekBar: SeekBar
 
     lateinit var passwordEditText: EditText
+    lateinit var passwordVisibilityImageView: ImageView
 
     // settings vars
     private var isSettingsSaved: Boolean = true
@@ -84,6 +85,7 @@ class SettingsActivity : AppCompatActivity() {
     private var audioLevel: Int = 75
 
     private var passwordText: String = ""
+    private var passwordVisibility: Boolean = false
 
     // activity result launchers
     private lateinit var selectVideo1PathLauncher: ActivityResultLauncher<Intent>
@@ -170,6 +172,7 @@ class SettingsActivity : AppCompatActivity() {
 
         // Password
         passwordEditText = findViewById(R.id.password_edittext)
+        passwordVisibilityImageView = findViewById(R.id.password_visibility_imageview)
     }
 
     private fun initViewValues() {
@@ -228,6 +231,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun initSelectPathLaunchers() {
+        // videos
         selectVideo1PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -261,6 +265,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
+        // covers
         selectCover1PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -440,6 +445,32 @@ class SettingsActivity : AppCompatActivity() {
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+
+        passwordVisibilityImageView.setOnClickListener{
+            if (passwordVisibility) {
+                passwordVisibilityImageView.setImageResource(R.drawable.hidden)
+                passwordEditText.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+                // change font to sofia pro regular because type_class_text
+                // automatically change it to default font
+                val typeface: Typeface? = ResourcesCompat.getFont(this, R.font.sofia_pro_regular)
+                passwordEditText.setTypeface(typeface)
+
+                passwordVisibility = false
+            } else {
+                passwordVisibilityImageView.setImageResource(R.drawable.visible)
+                passwordEditText.inputType =
+                    InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
+                // change font to sofia pro regular because type_class_text
+                // automatically change it to default font
+                val typeface: Typeface? = ResourcesCompat.getFont(this, R.font.sofia_pro_regular)
+                passwordEditText.setTypeface(typeface)
+
+                passwordVisibility = true
+            }
+        }
     }
 
     private fun saveSettings() {
