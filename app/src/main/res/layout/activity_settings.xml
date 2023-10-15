@@ -35,14 +35,16 @@
 
     <Button
         android:id="@+id/save_button"
-        android:layout_width="110dp"
-        android:layout_height="47dp"
+        android:layout_width="115dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/rounded_rect_10dp"
+        android:background="@drawable/rounded_rect_stroke_10dp"
+        android:focusable="true"
         android:fontFamily="@font/sofia_pro_semibold"
         android:foreground="@drawable/rounded_rect_10dp_ripple_effect"
         android:includeFontPadding="false"
-        android:text="@string/save"
+        android:text="@string/saved"
+        android:textColor="@color/green"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="@+id/title_textview"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,8 +61,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
-            android:paddingBottom="50dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="50dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -85,7 +87,6 @@
                     android:textSize="20sp" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/video1_settings_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="30dp">
@@ -96,6 +97,7 @@
                         android:layout_height="70dp"
                         android:background="@drawable/left_rounded_rect"
                         android:backgroundTint="@color/light_gray"
+                        android:paddingHorizontal="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -105,8 +107,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:ellipsize="start"
                             android:fontFamily="@font/sofia_pro_medium"
                             android:includeFontPadding="false"
+                            android:maxLines="1"
                             android:textColor="@color/dark_gray"
                             android:textSize="24sp" />
 
@@ -118,13 +122,14 @@
                         android:layout_height="70dp"
                         android:background="@drawable/right_rounded_rect"
                         android:backgroundTint="@color/green"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/right_rounded_rect_ripple_effect"
                         app:layout_constraintBottom_toBottomOf="@+id/video1_path_framelayout"
                         app:layout_constraintStart_toEndOf="@+id/video1_path_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video1_path_framelayout">
 
                         <TextView
-                            android:id="@+id/select_video1_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -137,23 +142,26 @@
                     </FrameLayout>
 
                     <FrameLayout
-                        android:id="@+id/cover1_framelayout"
+                        android:id="@+id/cover1_path_framelayout"
                         android:layout_width="250dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="30dp"
                         android:background="@drawable/left_rounded_rect"
                         android:backgroundTint="@color/light_gray"
+                        android:paddingHorizontal="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/video1_path_framelayout"
                         app:layout_constraintStart_toEndOf="@+id/select_video1_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video1_path_framelayout">
 
                         <TextView
-                            android:id="@+id/cover1_textview"
+                            android:id="@+id/cover1_path_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:ellipsize="start"
                             android:fontFamily="@font/sofia_pro_medium"
                             android:includeFontPadding="false"
+                            android:maxLines="1"
                             android:textColor="@color/dark_gray"
                             android:textSize="24sp" />
 
@@ -165,13 +173,14 @@
                         android:layout_height="70dp"
                         android:background="@drawable/right_rounded_rect"
                         android:backgroundTint="@color/green"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/right_rounded_rect_ripple_effect"
                         app:layout_constraintBottom_toBottomOf="@+id/video1_path_framelayout"
-                        app:layout_constraintStart_toEndOf="@+id/cover1_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/cover1_path_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video1_path_framelayout">
 
                         <TextView
-                            android:id="@+id/select_cover1_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -187,6 +196,8 @@
                         android:id="@+id/video1_visibility_imageview"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/circle_ripple_effect"
                         android:padding="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -198,7 +209,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/video2_settings_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="30dp">
@@ -209,6 +219,7 @@
                         android:layout_height="70dp"
                         android:background="@drawable/left_rounded_rect"
                         android:backgroundTint="@color/light_gray"
+                        android:paddingHorizontal="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -218,8 +229,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:ellipsize="start"
                             android:fontFamily="@font/sofia_pro_medium"
                             android:includeFontPadding="false"
+                            android:maxLines="1"
                             android:textColor="@color/dark_gray"
                             android:textSize="24sp" />
 
@@ -231,13 +244,14 @@
                         android:layout_height="70dp"
                         android:background="@drawable/right_rounded_rect"
                         android:backgroundTint="@color/green"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/right_rounded_rect_ripple_effect"
                         app:layout_constraintBottom_toBottomOf="@+id/video2_path_framelayout"
                         app:layout_constraintStart_toEndOf="@+id/video2_path_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video2_path_framelayout">
 
                         <TextView
-                            android:id="@+id/select_video2_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -250,23 +264,26 @@
                     </FrameLayout>
 
                     <FrameLayout
-                        android:id="@+id/cover2_framelayout"
+                        android:id="@+id/cover2_path_framelayout"
                         android:layout_width="250dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="30dp"
                         android:background="@drawable/left_rounded_rect"
                         android:backgroundTint="@color/light_gray"
+                        android:paddingHorizontal="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/video2_path_framelayout"
                         app:layout_constraintStart_toEndOf="@+id/select_video2_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video2_path_framelayout">
 
                         <TextView
-                            android:id="@+id/cover2_textview"
+                            android:id="@+id/cover2_path_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:ellipsize="start"
                             android:fontFamily="@font/sofia_pro_medium"
                             android:includeFontPadding="false"
+                            android:maxLines="1"
                             android:textColor="@color/dark_gray"
                             android:textSize="24sp" />
 
@@ -278,13 +295,14 @@
                         android:layout_height="70dp"
                         android:background="@drawable/right_rounded_rect"
                         android:backgroundTint="@color/green"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/right_rounded_rect_ripple_effect"
                         app:layout_constraintBottom_toBottomOf="@+id/video2_path_framelayout"
-                        app:layout_constraintStart_toEndOf="@+id/cover2_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/cover2_path_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video2_path_framelayout">
 
                         <TextView
-                            android:id="@+id/select_cover2_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -300,6 +318,8 @@
                         android:id="@+id/video2_visibility_imageview"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/circle_ripple_effect"
                         android:padding="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -311,7 +331,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/video3_settings_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="30dp">
@@ -322,6 +341,7 @@
                         android:layout_height="70dp"
                         android:background="@drawable/left_rounded_rect"
                         android:backgroundTint="@color/light_gray"
+                        android:paddingHorizontal="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -331,8 +351,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:ellipsize="start"
                             android:fontFamily="@font/sofia_pro_medium"
                             android:includeFontPadding="false"
+                            android:maxLines="1"
                             android:textColor="@color/dark_gray"
                             android:textSize="24sp" />
 
@@ -344,13 +366,14 @@
                         android:layout_height="70dp"
                         android:background="@drawable/right_rounded_rect"
                         android:backgroundTint="@color/green"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/right_rounded_rect_ripple_effect"
                         app:layout_constraintBottom_toBottomOf="@+id/video3_path_framelayout"
                         app:layout_constraintStart_toEndOf="@+id/video3_path_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video3_path_framelayout">
 
                         <TextView
-                            android:id="@+id/select_video3_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -363,23 +386,26 @@
                     </FrameLayout>
 
                     <FrameLayout
-                        android:id="@+id/cover3_framelayout"
+                        android:id="@+id/cover3_path_framelayout"
                         android:layout_width="250dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="30dp"
                         android:background="@drawable/left_rounded_rect"
                         android:backgroundTint="@color/light_gray"
+                        android:paddingHorizontal="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/video3_path_framelayout"
                         app:layout_constraintStart_toEndOf="@+id/select_video3_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video3_path_framelayout">
 
                         <TextView
-                            android:id="@+id/cover3_textview"
+                            android:id="@+id/cover3_path_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:ellipsize="start"
                             android:fontFamily="@font/sofia_pro_medium"
                             android:includeFontPadding="false"
+                            android:maxLines="1"
                             android:textColor="@color/dark_gray"
                             android:textSize="24sp" />
 
@@ -391,13 +417,14 @@
                         android:layout_height="70dp"
                         android:background="@drawable/right_rounded_rect"
                         android:backgroundTint="@color/green"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/right_rounded_rect_ripple_effect"
                         app:layout_constraintBottom_toBottomOf="@+id/video3_path_framelayout"
-                        app:layout_constraintStart_toEndOf="@+id/cover3_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/cover3_path_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video3_path_framelayout">
 
                         <TextView
-                            android:id="@+id/select_cover3_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -413,6 +440,8 @@
                         android:id="@+id/video3_visibility_imageview"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/circle_ripple_effect"
                         android:padding="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -424,7 +453,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/video4_settings_linearlayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="30dp">
@@ -435,6 +463,7 @@
                         android:layout_height="70dp"
                         android:background="@drawable/left_rounded_rect"
                         android:backgroundTint="@color/light_gray"
+                        android:paddingHorizontal="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -444,8 +473,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:ellipsize="start"
                             android:fontFamily="@font/sofia_pro_medium"
                             android:includeFontPadding="false"
+                            android:maxLines="1"
                             android:textColor="@color/dark_gray"
                             android:textSize="24sp" />
 
@@ -457,13 +488,14 @@
                         android:layout_height="70dp"
                         android:background="@drawable/right_rounded_rect"
                         android:backgroundTint="@color/green"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/right_rounded_rect_ripple_effect"
                         app:layout_constraintBottom_toBottomOf="@+id/video4_path_framelayout"
                         app:layout_constraintStart_toEndOf="@+id/video4_path_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video4_path_framelayout">
 
                         <TextView
-                            android:id="@+id/select_video4_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -476,23 +508,26 @@
                     </FrameLayout>
 
                     <FrameLayout
-                        android:id="@+id/cover4_framelayout"
+                        android:id="@+id/cover4_path_framelayout"
                         android:layout_width="250dp"
                         android:layout_height="70dp"
                         android:layout_marginStart="30dp"
                         android:background="@drawable/left_rounded_rect"
                         android:backgroundTint="@color/light_gray"
+                        android:paddingHorizontal="20dp"
                         app:layout_constraintBottom_toBottomOf="@+id/video4_path_framelayout"
                         app:layout_constraintStart_toEndOf="@+id/select_video4_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video4_path_framelayout">
 
                         <TextView
-                            android:id="@+id/cover4_textview"
+                            android:id="@+id/cover4_path_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:ellipsize="start"
                             android:fontFamily="@font/sofia_pro_medium"
                             android:includeFontPadding="false"
+                            android:maxLines="1"
                             android:textColor="@color/dark_gray"
                             android:textSize="24sp" />
 
@@ -504,13 +539,14 @@
                         android:layout_height="70dp"
                         android:background="@drawable/right_rounded_rect"
                         android:backgroundTint="@color/green"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/right_rounded_rect_ripple_effect"
                         app:layout_constraintBottom_toBottomOf="@+id/video4_path_framelayout"
-                        app:layout_constraintStart_toEndOf="@+id/cover4_framelayout"
+                        app:layout_constraintStart_toEndOf="@+id/cover4_path_framelayout"
                         app:layout_constraintTop_toTopOf="@+id/video4_path_framelayout">
 
                         <TextView
-                            android:id="@+id/select_cover4_textview"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -526,6 +562,8 @@
                         android:id="@+id/video4_visibility_imageview"
                         android:layout_width="55dp"
                         android:layout_height="55dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:foreground="@drawable/circle_ripple_effect"
                         android:padding="5dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -566,6 +604,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    android:progress="75"
                     android:progressDrawable="@drawable/custom_seekbar"
                     android:thumb="@drawable/custom_thumb" />
 
@@ -611,12 +650,12 @@
                         android:id="@+id/password_edittext"
                         android:layout_width="415dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
                         android:background="@null"
                         android:ems="10"
                         android:fontFamily="@font/sofia_pro_regular"
                         android:includeFontPadding="false"
                         android:inputType="text|textPassword"
-                        android:layout_marginStart="30dp"
                         android:textColor="@color/white"
                         android:textCursorDrawable="@drawable/white_cursor"
                         android:textSize="40sp" />
@@ -627,6 +666,7 @@
                         android:layout_height="45dp"
                         android:layout_marginStart="40dp"
                         android:layout_marginEnd="20dp"
+                        android:clickable="true"
                         android:foreground="@drawable/circle_ripple_effect"
                         android:padding="5dp"
                         app:srcCompat="@drawable/hidden"

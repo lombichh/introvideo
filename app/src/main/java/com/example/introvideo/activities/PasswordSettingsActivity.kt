@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.example.introvideo.R
-import com.example.introvideo.utils.SettingsPasswordUtils
+import com.example.introvideo.utils.SettingsUtils
 import java.security.KeyStore
 
 
@@ -73,7 +73,7 @@ class PasswordSettingsActivity : AppCompatActivity() {
             // else, show error toast
             val enteredPassword: String = passwordEditText.text.toString()
 
-            if (SettingsPasswordUtils.isPasswordCorrect(this, enteredPassword))
+            if (SettingsUtils.isPasswordCorrect(this, enteredPassword))
                 startActivity(Intent(this, SettingsActivity::class.java))
             else Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show()
         }
