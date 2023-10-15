@@ -8,6 +8,7 @@ import java.security.MessageDigest
 class SettingsUtils {
 
     companion object {
+        // shared preferences ids
         val settingsSharedPrefsName: String = "settings"
 
         val video1PathId: String = "video1_path"
@@ -15,15 +16,15 @@ class SettingsUtils {
         val video3PathId: String = "video3_path"
         val video4PathId: String = "video4_path"
 
-        val video1CoverPathId: String = "video1_cover_path"
-        val video2CoverPathId: String = "video2_cover_path"
-        val video3CoverPathId: String = "video3_cover_path"
-        val video4CoverPathId: String = "video4_cover_path"
+        val cover1PathId: String = "video1_cover_path"
+        val cover2PathId: String = "video2_cover_path"
+        val cover3PathId: String = "video3_cover_path"
+        val cover4PathId: String = "video4_cover_path"
 
-        val video1VisibleId: String = "video1_visible"
-        val video2VisibleId: String = "video2_visible"
-        val video3VisibleId: String = "video3_visible"
-        val video4VisibleId: String = "video4_visible"
+        val video1VisibilityId: String = "video1_visibility"
+        val video2VisibilityId: String = "video2_visibility"
+        val video3VisibilityId: String = "video3_visibility"
+        val video4VisibilityId: String = "video4_visibility"
 
         val audioLevelId: String = "audio_level"
 
