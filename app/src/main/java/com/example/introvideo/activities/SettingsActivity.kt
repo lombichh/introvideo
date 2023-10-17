@@ -8,11 +8,13 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.Typeface
 import android.graphics.drawable.LayerDrawable
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -23,8 +25,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.documentfile.provider.DocumentFile
 import com.example.introvideo.R
 import com.example.introvideo.utils.SettingsUtils
+import java.io.File
+import java.util.*
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -72,7 +77,7 @@ class SettingsActivity : AppCompatActivity() {
     private var video3Path: String = ""
     private var video4Path: String = ""
 
-    private var Cover1Path: String = ""
+    private var cover1Path: String = ""
     private var cover2Path: String = ""
     private var cover3Path: String = ""
     private var cover4Path: String = ""
@@ -111,11 +116,11 @@ class SettingsActivity : AppCompatActivity() {
             getSharedPreferences(SettingsUtils.settingsSharedPrefsName, Context.MODE_PRIVATE)
 
         video1Path = settingsSharedPrefs.getString(SettingsUtils.video1PathId, "").toString()
-        video1Path = settingsSharedPrefs.getString(SettingsUtils.video1PathId, "").toString()
-        video1Path = settingsSharedPrefs.getString(SettingsUtils.video1PathId, "").toString()
-        video1Path = settingsSharedPrefs.getString(SettingsUtils.video1PathId, "").toString()
+        video2Path = settingsSharedPrefs.getString(SettingsUtils.video2PathId, "").toString()
+        video3Path = settingsSharedPrefs.getString(SettingsUtils.video3PathId, "").toString()
+        video4Path = settingsSharedPrefs.getString(SettingsUtils.video4PathId, "").toString()
 
-        Cover1Path = settingsSharedPrefs.getString(SettingsUtils.cover1PathId, "").toString()
+        cover1Path = settingsSharedPrefs.getString(SettingsUtils.cover1PathId, "").toString()
         cover2Path = settingsSharedPrefs.getString(SettingsUtils.cover2PathId, "").toString()
         cover3Path = settingsSharedPrefs.getString(SettingsUtils.cover3PathId, "").toString()
         cover4Path = settingsSharedPrefs.getString(SettingsUtils.cover4PathId, "").toString()
@@ -129,7 +134,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun initUi() {
-        // Videos
         initViewVars()
         initViewValues()
         initSelectPathLaunchers()
@@ -182,7 +186,7 @@ class SettingsActivity : AppCompatActivity() {
         video3PathTextView.text = video3Path
         video4PathTextView.text = video4Path
 
-        cover1PathTextView.text = Cover1Path
+        cover1PathTextView.text = cover1Path
         cover2PathTextView.text = cover2Path
         cover3PathTextView.text = cover3Path
         cover4PathTextView.text = cover4Path
@@ -251,7 +255,16 @@ class SettingsActivity : AppCompatActivity() {
         selectVideo3PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video3Path = result.data?.data?.path.toString()
+                video3Path = result.data?.data.toString()
+
+                // check if file exists for debug
+                val selectedFileUri: Uri? = Uri.parse(video3Path)
+                if (selectedFileUri != null) {
+                    val documentFile = DocumentFile.fromSingleUri(this, selectedFileUri)
+                    Log.d("lombichh", "folder path: $video3Path")
+                    Log.d("lombichh", "exists: ${documentFile?.exists()}")
+                }
+
                 video3PathTextView.text = video3Path
                 updateSettingsSaved()
             }
@@ -269,8 +282,8 @@ class SettingsActivity : AppCompatActivity() {
         selectCover1PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                Cover1Path = result.data?.data?.path.toString()
-                cover1PathTextView.text = Cover1Path
+                cover1Path = result.data?.data?.path.toString()
+                cover1PathTextView.text = cover1Path
                 updateSettingsSaved()
             }
         }
@@ -285,7 +298,12 @@ class SettingsActivity : AppCompatActivity() {
         selectCover3PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                cover3Path = result.data?.data?.path.toString()
+                cover3Path = result.data?.data.toString()
+
+                /*val video3File = File(video3Path)
+                Log.d("lombichh", "path: $cover3Path")
+                Log.d("lombichh", "exists: ${cover3Path.exists()}")*/
+
                 cover3PathTextView.text = cover3Path
                 updateSettingsSaved()
             }
@@ -298,6 +316,12 @@ class SettingsActivity : AppCompatActivity() {
                 updateSettingsSaved()
             }
         }
+    }
+
+    private fun isVideoFile(fileName: String): Boolean {
+        val videoExtensions = arrayOf("mp4", "avi", "mkv", "mov", "wmv", "flv")
+        val extension = fileName.substringAfterLast(".")
+        return extension.lowercase(Locale.ROOT) in videoExtensions
     }
 
     private fun initOnClickListeners() {
@@ -330,8 +354,10 @@ class SettingsActivity : AppCompatActivity() {
             selectVideo2PathLauncher.launch(intent)
         }
         selectVideo3FrameLayout.setOnClickListener{
-            // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+            // launch video picker
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "video/*"
             selectVideo3PathLauncher.launch(intent)
         }
         selectVideo4FrameLayout.setOnClickListener{
@@ -352,7 +378,9 @@ class SettingsActivity : AppCompatActivity() {
         }
         selectCover3FrameLayout.setOnClickListener{
             // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            intent.type = "image/*"
             selectCover3PathLauncher.launch(intent)
         }
         selectCover4FrameLayout.setOnClickListener{
@@ -362,6 +390,21 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         video1VisibilityImageView.setOnClickListener{
+            Log.d("lombichh", "--- outside result")
+            Log.d("lombichh", "folder path: content://com.android.externalstorage.documents/tree/primary%3AMovies")
+            val treeUri: Uri = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AMovies")
+            val documentFile = DocumentFile.fromTreeUri(this, treeUri)
+
+            Log.d("lombichh", "exists: ${documentFile?.exists()}")
+            if (documentFile != null && documentFile.isDirectory) {
+                val files = documentFile.listFiles()
+                for (file in files) {
+                    if (file.isFile && isVideoFile(file.name!!)) {
+                        Log.d("lombichh", "video file: ${file.name}")
+                    }
+                }
+            }
+
             if (video1Visibility) {
                 video1VisibilityImageView.setImageResource(R.drawable.hidden)
                 video1VisibilityImageView.colorFilter =
@@ -482,7 +525,7 @@ class SettingsActivity : AppCompatActivity() {
             putString(SettingsUtils.video3PathId, video3Path)
             putString(SettingsUtils.video4PathId, video4Path)
 
-            putString(SettingsUtils.cover1PathId, Cover1Path)
+            putString(SettingsUtils.cover1PathId, cover1Path)
             putString(SettingsUtils.cover2PathId, cover2Path)
             putString(SettingsUtils.cover3PathId, cover3Path)
             putString(SettingsUtils.cover4PathId, cover4Path)
