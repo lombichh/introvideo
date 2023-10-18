@@ -9,6 +9,19 @@ import android.provider.MediaStore
 class VideoUtils {
 
     companion object {
+        fun getRealPathFromUri(context: Context, uri: Uri): String? {
+            val projection = arrayOf(MediaStore.Video.Media.DATA)
+            val cursor = context.contentResolver.query(uri, projection, null, null, null)
+
+            cursor?.use {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Video.Media.DATA)
+                it.moveToFirst()
+                return it.getString(columnIndex)
+            }
+
+            return null
+        }
+
         fun getPhysicalPath(context: Context, uri: Uri?): String? {
             if (uri == null) {
                 return null

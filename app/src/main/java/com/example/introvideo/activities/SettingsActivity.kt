@@ -9,7 +9,6 @@ import android.graphics.PorterDuffColorFilter
 import android.graphics.Typeface
 import android.graphics.drawable.LayerDrawable
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -24,13 +23,16 @@ import android.widget.TextView
 import android.widget.VideoView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.documentfile.provider.DocumentFile
 import com.example.introvideo.R
+import com.example.introvideo.utils.FileUtils
 import com.example.introvideo.utils.SettingsUtils
 import com.example.introvideo.utils.VideoUtils
 import java.util.*
+
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var videoView: VideoView
@@ -84,10 +86,10 @@ class SettingsActivity : AppCompatActivity() {
     private var cover3Path: String = ""
     private var cover4Path: String = ""
 
-    private var video1Visibility: Boolean = false
-    private var video2Visibility: Boolean = false
-    private var video3Visibility: Boolean = false
-    private var video4Visibility: Boolean = false
+    private var video1Visibility: Boolean = true
+    private var video2Visibility: Boolean = true
+    private var video3Visibility: Boolean = true
+    private var video4Visibility: Boolean = true
 
     private var audioLevel: Int = 75
 
@@ -127,10 +129,10 @@ class SettingsActivity : AppCompatActivity() {
         cover3Path = settingsSharedPrefs.getString(SettingsUtils.cover3PathId, "").toString()
         cover4Path = settingsSharedPrefs.getString(SettingsUtils.cover4PathId, "").toString()
 
-        video1Visibility = settingsSharedPrefs.getBoolean(SettingsUtils.video1VisibilityId, false)
-        video2Visibility = settingsSharedPrefs.getBoolean(SettingsUtils.video2VisibilityId, false)
-        video3Visibility = settingsSharedPrefs.getBoolean(SettingsUtils.video3VisibilityId, false)
-        video4Visibility = settingsSharedPrefs.getBoolean(SettingsUtils.video4VisibilityId, false)
+        video1Visibility = settingsSharedPrefs.getBoolean(SettingsUtils.video1VisibilityId, true)
+        video2Visibility = settingsSharedPrefs.getBoolean(SettingsUtils.video2VisibilityId, true)
+        video3Visibility = settingsSharedPrefs.getBoolean(SettingsUtils.video3VisibilityId, true)
+        video4Visibility = settingsSharedPrefs.getBoolean(SettingsUtils.video4VisibilityId, true)
 
         audioLevel = settingsSharedPrefs.getInt(SettingsUtils.audioLevelId, 75)
     }
@@ -143,8 +145,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun initViewVars() {
-        videoView = findViewById(R.id.videoView)
-
         // Toolbar
         backImageView = findViewById(R.id.back_imageview)
         saveButton = findViewById(R.id.save_button)
@@ -243,33 +243,53 @@ class SettingsActivity : AppCompatActivity() {
         selectVideo1Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video1Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
-                video1PathTextView.text = video1Path
-                updateSettingsSaved()
+                if (result != null && result.data != null) {
+                    // add new video in cache
+                    video1Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+
+                    // update ui
+                    video1PathTextView.text = video1Path
+                    updateSettingsSaved()
+                }
             }
         }
         selectVideo2Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video2Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
-                video2PathTextView.text = video2Path
-                updateSettingsSaved()
+                if (result != null && result.data != null) {
+                    // add new video in cache
+                    video2Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+
+                    // update ui
+                    video2PathTextView.text = video2Path
+                    updateSettingsSaved()
+                }
             }
         }
         selectVideo3Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video3Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
-                video3PathTextView.text = video3Path
-                updateSettingsSaved()
+                if (result != null && result.data != null) {
+                    // add new video in cache
+                    video3Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+
+                    // update ui
+                    video3PathTextView.text = video3Path
+                    updateSettingsSaved()
+                }
             }
         }
         selectVideo4Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video4Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
-                video4PathTextView.text = video4Path
-                updateSettingsSaved()
+                if (result != null && result.data != null) {
+                    // add new video in cache
+                    video4Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+
+                    // update ui
+                    video4PathTextView.text = video4Path
+                    updateSettingsSaved()
+                }
             }
         }
 
@@ -277,7 +297,8 @@ class SettingsActivity : AppCompatActivity() {
         selectCover1Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                cover1Path = result.data?.data?.path.toString()
+                // update settings vars and ui
+                cover1Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
                 cover1PathTextView.text = cover1Path
                 updateSettingsSaved()
             }
@@ -285,7 +306,8 @@ class SettingsActivity : AppCompatActivity() {
         selectCover2Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                cover2Path = result.data?.data?.path.toString()
+                // update settings vars and ui
+                cover2Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
                 cover2PathTextView.text = cover2Path
                 updateSettingsSaved()
             }
@@ -293,12 +315,8 @@ class SettingsActivity : AppCompatActivity() {
         selectCover3Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                cover3Path = result.data?.data.toString()
-
-                /*val video3File = File(video3Path)
-                Log.d("lombichh", "path: $cover3Path")
-                Log.d("lombichh", "exists: ${cover3Path.exists()}")*/
-
+                // update settings vars and ui
+                cover3Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
                 cover3PathTextView.text = cover3Path
                 updateSettingsSaved()
             }
@@ -306,7 +324,8 @@ class SettingsActivity : AppCompatActivity() {
         selectCover4Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                cover4Path = result.data?.data?.path.toString()
+                // update settings vars and ui
+                cover4Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
                 cover4PathTextView.text = cover4Path
                 updateSettingsSaved()
             }
@@ -352,26 +371,16 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         selectCover1FrameLayout.setOnClickListener{
-            // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectCover1Launcher.launch(intent)
+            selectCover1Launcher.launch(getSelectFileLauncherIntent("image/*"))
         }
         selectCover2FrameLayout.setOnClickListener{
-            // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectCover2Launcher.launch(intent)
+            selectCover2Launcher.launch(getSelectFileLauncherIntent("image/*"))
         }
         selectCover3FrameLayout.setOnClickListener{
-            // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "image/*"
-            selectCover3Launcher.launch(intent)
+            selectCover3Launcher.launch(getSelectFileLauncherIntent("image/*"))
         }
         selectCover4FrameLayout.setOnClickListener{
-            // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectCover4Launcher.launch(intent)
+            selectCover4Launcher.launch(getSelectFileLauncherIntent("image/*"))
         }
 
         video1VisibilityImageView.setOnClickListener{

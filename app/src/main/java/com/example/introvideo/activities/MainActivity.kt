@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -51,22 +52,41 @@ class MainActivity : AppCompatActivity() {
     private var cover3Path: String = ""
     private var cover4Path: String = ""
 
+    private var video1Visibility: Boolean = true
+    private var video2Visibility: Boolean = true
+    private var video3Visibility: Boolean = true
+    private var video4Visibility: Boolean = true
+
+    // activity result launchers
+    private lateinit var requestPermissionsLauncher: ActivityResultLauncher<Array<String>>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Register ActivityResult handler
-        val requestPermissions = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
-        { results ->
-            loadSharedPreferences()
-            initUi()
-        }
+        initPermissionsLauncher()
+    }
 
-        // Permission request logic
+    override fun onResume() {
+        super.onResume()
+
+        launchPermissionsRequest()
+    }
+
+    private fun initPermissionsLauncher() {
+        requestPermissionsLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
+            { results ->
+                loadSharedPreferences()
+                initUi()
+            }
+    }
+
+    private fun launchPermissionsRequest() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissions.launch(arrayOf(READ_MEDIA_IMAGES, READ_MEDIA_VIDEO))
+            requestPermissionsLauncher.launch(arrayOf(READ_MEDIA_IMAGES, READ_MEDIA_VIDEO))
         } else {
-            requestPermissions.launch(arrayOf(READ_EXTERNAL_STORAGE))
+            requestPermissionsLauncher.launch(arrayOf(READ_EXTERNAL_STORAGE))
         }
     }
 
@@ -83,6 +103,15 @@ class MainActivity : AppCompatActivity() {
         cover2Path = settingsSharedPrefs.getString(SettingsUtils.cover2PathId, "").toString()
         cover3Path = settingsSharedPrefs.getString(SettingsUtils.cover3PathId, "").toString()
         cover4Path = settingsSharedPrefs.getString(SettingsUtils.cover4PathId, "").toString()
+
+        video1Visibility =
+            settingsSharedPrefs.getBoolean(SettingsUtils.video1VisibilityId, true)
+        video2Visibility =
+            settingsSharedPrefs.getBoolean(SettingsUtils.video2VisibilityId, true)
+        video3Visibility =
+            settingsSharedPrefs.getBoolean(SettingsUtils.video3VisibilityId, true)
+        video4Visibility =
+            settingsSharedPrefs.getBoolean(SettingsUtils.video4VisibilityId, true)
     }
 
     private fun initUi() {
@@ -105,14 +134,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViewValues() {
-        settingsImageView.setOnClickListener{
+        settingsImageView.setOnClickListener {
             openSettings()
         }
 
         // show videos and covers only if they exists
-        val video1File = getFirstVideoInFolder(video1Path)
-        if (video1File != null) {
-            video1Layout.setOnClickListener{
+        val video1File = File(video1Path)
+        if (video1Visibility && video1File.exists()) {
+            video1Layout.setOnClickListener {
 
             }
 
@@ -125,9 +154,9 @@ class MainActivity : AppCompatActivity() {
             video1Layout.visibility = ConstraintLayout.VISIBLE
         } else video1Layout.visibility = ConstraintLayout.GONE
 
-        val video2File = getFirstVideoInFolder(video2Path)
-        if (video2File != null) {
-            video2Layout.setOnClickListener{
+        val video2File = File(video2Path)
+        if (video2Visibility && video2File.exists()) {
+            video2Layout.setOnClickListener {
 
             }
 
@@ -140,37 +169,24 @@ class MainActivity : AppCompatActivity() {
             video2Layout.visibility = ConstraintLayout.VISIBLE
         } else video2Layout.visibility = ConstraintLayout.GONE
 
-        video3Layout.setOnClickListener{
-            val intent = Intent(this, VideoPlayerActivity::class.java)
-            intent.putExtra("video_path", video3Path)
-            startActivity(intent)
-        }
+        val video3File = File(video3Path)
+        if (video3Visibility && video3File.exists()) {
+            video3Layout.setOnClickListener {
 
-        /*val video3Uri: Uri? = Uri.parse(video3Path)
-        if (video3Uri != null) {
-            // check if file exists for debug
-            val video3File = DocumentFile.fromSingleUri(this, video3Uri)
-            Log.d("lombichh", "folder path: $video3Path")
-            Log.d("lombichh", "exists: ${video3File?.exists()}")
+            }
 
-            if (video3File != null && video3File.exists()) {
-                video3Layout.setOnClickListener{
+            val cover3File = getFirstImageInFolder(cover3Path)
+            if (cover3File != null) {
+                val cover3Bitmap = BitmapFactory.decodeFile(cover3File.absolutePath)
+                video3ImageView.setImageBitmap(cover3Bitmap)
+            }
 
-                }
+            video3Layout.visibility = ConstraintLayout.VISIBLE
+        } else video3Layout.visibility = ConstraintLayout.GONE
 
-                val cover3File = File(cover3Path)
-                if (cover3File.exists()) {
-                    val cover3Bitmap = BitmapFactory.decodeFile(cover3File.absolutePath)
-                    video3ImageView.setImageBitmap(cover3Bitmap)
-                }
-
-                video3Layout.visibility = ConstraintLayout.VISIBLE
-            } else video3Layout.visibility = ConstraintLayout.GONE
-        }*/
-
-        val video4File = getFirstVideoInFolder(video4Path)
-        if (video4File != null) {
-            video4Layout.setOnClickListener{
+        val video4File = File(video4Path)
+        if (video4Visibility && video4File.exists()) {
+            video4Layout.setOnClickListener {
 
             }
 
@@ -187,7 +203,8 @@ class MainActivity : AppCompatActivity() {
     private fun getFirstVideoInFolder(folderPath: String): DocumentFile? {
         Log.d("lombichh", "folder path: $folderPath")
         if (folderPath != "") {
-            val treeUri: Uri = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AMovies")
+            val treeUri: Uri =
+                Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AMovies")
             val documentFile = DocumentFile.fromTreeUri(this, treeUri)
 
             Log.d("lombichh", "exists: ${documentFile?.exists()}")
@@ -223,7 +240,8 @@ class MainActivity : AppCompatActivity() {
                         if (fileName.endsWith(".jpg")
                             || fileName.endsWith(".jpeg")
                             || fileName.endsWith(".png")
-                            || fileName.endsWith(".gif")) {
+                            || fileName.endsWith(".gif")
+                        ) {
                             return file
                         }
                     }
