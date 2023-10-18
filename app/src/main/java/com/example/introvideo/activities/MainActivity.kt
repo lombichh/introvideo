@@ -142,11 +142,11 @@ class MainActivity : AppCompatActivity() {
         val video1File = File(video1Path)
         if (video1Visibility && video1File.exists()) {
             video1Layout.setOnClickListener {
-
+                startVideoActivity(video1Path)
             }
 
-            val cover1File = getFirstImageInFolder(cover1Path)
-            if (cover1File != null) {
+            val cover1File = File(cover1Path)
+            if (cover1File.exists()) {
                 val cover1Bitmap = BitmapFactory.decodeFile(cover1File.absolutePath)
                 video1ImageView.setImageBitmap(cover1Bitmap)
             }
@@ -157,11 +157,11 @@ class MainActivity : AppCompatActivity() {
         val video2File = File(video2Path)
         if (video2Visibility && video2File.exists()) {
             video2Layout.setOnClickListener {
-
+                startVideoActivity(video2Path)
             }
 
-            val cover2File = getFirstImageInFolder(cover2Path)
-            if (cover2File != null) {
+            val cover2File = File(cover2Path)
+            if (cover2File.exists()) {
                 val cover2Bitmap = BitmapFactory.decodeFile(cover2File.absolutePath)
                 video2ImageView.setImageBitmap(cover2Bitmap)
             }
@@ -172,11 +172,11 @@ class MainActivity : AppCompatActivity() {
         val video3File = File(video3Path)
         if (video3Visibility && video3File.exists()) {
             video3Layout.setOnClickListener {
-
+                startVideoActivity(video3Path)
             }
 
-            val cover3File = getFirstImageInFolder(cover3Path)
-            if (cover3File != null) {
+            val cover3File = File(cover3Path)
+            if (cover3File.exists()) {
                 val cover3Bitmap = BitmapFactory.decodeFile(cover3File.absolutePath)
                 video3ImageView.setImageBitmap(cover3Bitmap)
             }
@@ -187,11 +187,11 @@ class MainActivity : AppCompatActivity() {
         val video4File = File(video4Path)
         if (video4Visibility && video4File.exists()) {
             video4Layout.setOnClickListener {
-
+                startVideoActivity(video4Path)
             }
 
-            val cover4File = getFirstImageInFolder(cover4Path)
-            if (cover4File != null) {
+            val cover4File = File(cover4Path)
+            if (cover4File.exists()) {
                 val cover4Bitmap = BitmapFactory.decodeFile(cover4File.absolutePath)
                 video4ImageView.setImageBitmap(cover4Bitmap)
             }
@@ -200,56 +200,10 @@ class MainActivity : AppCompatActivity() {
         } else video4Layout.visibility = ConstraintLayout.GONE
     }
 
-    private fun getFirstVideoInFolder(folderPath: String): DocumentFile? {
-        Log.d("lombichh", "folder path: $folderPath")
-        if (folderPath != "") {
-            val treeUri: Uri =
-                Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AMovies")
-            val documentFile = DocumentFile.fromTreeUri(this, treeUri)
-
-            Log.d("lombichh", "exists: ${documentFile?.exists()}")
-            if (documentFile != null && documentFile.isDirectory) {
-                val files = documentFile.listFiles()
-                for (file in files) {
-                    if (file.isFile && isVideoFile(file.name!!)) {
-                        return file
-                    }
-                }
-            }
-        }
-
-        return null
-    }
-
-    private fun isVideoFile(fileName: String): Boolean {
-        val videoExtensions = arrayOf("mp4", "avi", "mkv", "mov", "wmv", "flv")
-        val extension = fileName.substringAfterLast(".")
-        return extension.lowercase(Locale.ROOT) in videoExtensions
-    }
-
-    private fun getFirstImageInFolder(folderPath: String): File? {
-        val folder = File(folderPath)
-
-        if (folder.exists() && folder.isDirectory) {
-            val files = folder.listFiles()
-
-            if (files != null) {
-                for (file in files) {
-                    if (file.isFile) {
-                        val fileName = file.name.lowercase(Locale.ROOT)
-                        if (fileName.endsWith(".jpg")
-                            || fileName.endsWith(".jpeg")
-                            || fileName.endsWith(".png")
-                            || fileName.endsWith(".gif")
-                        ) {
-                            return file
-                        }
-                    }
-                }
-            }
-        }
-
-        return null
+    private fun startVideoActivity(videoPath: String) {
+        val intent = Intent(this, VideoPlayerActivity::class.java)
+        intent.putExtra("video_path", videoPath)
+        startActivity(intent)
     }
 
     private fun openSettings() {
