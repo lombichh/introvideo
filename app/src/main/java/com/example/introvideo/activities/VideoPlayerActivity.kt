@@ -2,20 +2,10 @@ package com.example.introvideo.activities
 
 import android.content.Context
 import android.media.AudioManager
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
-import android.provider.DocumentsContract
-import android.provider.MediaStore
-import android.util.Log
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.documentfile.provider.DocumentFile
 import com.example.introvideo.R
-import java.io.File
-import java.io.FileInputStream
-
-
 
 
 class VideoPlayerActivity : AppCompatActivity() {

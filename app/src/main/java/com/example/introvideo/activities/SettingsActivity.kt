@@ -234,112 +234,120 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun initSelectPathLaunchers() {
         // videos
-        selectVideo1Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                if (result != null && result.data != null) {
-                    // add new video in cache
-                    video1Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+        selectVideo1Launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    if (result != null && result.data != null) {
+                        // add new video in cache
+                        video1Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
 
-                    // update ui
-                    video1PathTextView.text = video1Path
-                    updateSettingsSaved()
+                        // update ui
+                        video1PathTextView.text = video1Path
+                        updateSettingsSaved()
+                    }
                 }
             }
-        }
-        selectVideo2Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                if (result != null && result.data != null) {
-                    // add new video in cache
-                    video2Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+        selectVideo2Launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    if (result != null && result.data != null) {
+                        // add new video in cache
+                        video2Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
 
-                    // update ui
-                    video2PathTextView.text = video2Path
-                    updateSettingsSaved()
+                        // update ui
+                        video2PathTextView.text = video2Path
+                        updateSettingsSaved()
+                    }
                 }
             }
-        }
-        selectVideo3Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                if (result != null && result.data != null) {
-                    // add new video in cache
-                    video3Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+        selectVideo3Launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    if (result != null && result.data != null) {
+                        // add new video in cache
+                        video3Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
 
-                    // update ui
-                    video3PathTextView.text = video3Path
-                    updateSettingsSaved()
+                        // update ui
+                        video3PathTextView.text = video3Path
+                        updateSettingsSaved()
+                    }
                 }
             }
-        }
-        selectVideo4Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                if (result != null && result.data != null) {
-                    // add new video in cache
-                    video4Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+        selectVideo4Launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    if (result != null && result.data != null) {
+                        // add new video in cache
+                        video4Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
 
-                    // update ui
-                    video4PathTextView.text = video4Path
-                    updateSettingsSaved()
+                        // update ui
+                        video4PathTextView.text = video4Path
+                        updateSettingsSaved()
+                    }
                 }
             }
-        }
 
         // covers
-        selectCover1Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                // add new image in cache
-                cover1Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+        selectCover1Launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // add new image in cache
+                    cover1Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
 
-                // update ui
-                cover1PathTextView.text = cover1Path
-                updateSettingsSaved()
+                    // update ui
+                    cover1PathTextView.text = cover1Path
+                    updateSettingsSaved()
+                }
             }
-        }
-        selectCover2Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                // add new image in cache
-                cover2Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+        selectCover2Launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // add new image in cache
+                    cover2Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
 
-                // update ui
-                cover2PathTextView.text = cover2Path
-                updateSettingsSaved()
+                    // update ui
+                    cover2PathTextView.text = cover2Path
+                    updateSettingsSaved()
+                }
             }
-        }
-        selectCover3Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                // add new image in cache
-                cover3Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+        selectCover3Launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // add new image in cache
+                    cover3Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
 
-                // update ui
-                cover3PathTextView.text = cover3Path
-                updateSettingsSaved()
+                    // update ui
+                    cover3PathTextView.text = cover3Path
+                    updateSettingsSaved()
+                }
             }
-        }
-        selectCover4Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-        { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                // add new image in cache
-                cover4Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+        selectCover4Launcher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // add new image in cache
+                    cover4Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
 
-                // update ui
-                cover4PathTextView.text = cover4Path
-                updateSettingsSaved()
+                    // update ui
+                    cover4PathTextView.text = cover4Path
+                    updateSettingsSaved()
+                }
             }
-        }
     }
 
     private fun initOnClickListeners() {
         // Toolbar
-        backImageView.setOnClickListener{
+        backImageView.setOnClickListener {
             finish()
         }
-        saveButton.setOnClickListener{
+        saveButton.setOnClickListener {
             if (!isSettingsSaved) {
                 saveSettings()
 
@@ -353,33 +361,33 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // Videos
-        selectVideo1FrameLayout.setOnClickListener{
+        selectVideo1FrameLayout.setOnClickListener {
             selectVideo1Launcher.launch(getSelectFileLauncherIntent("video/*"))
         }
-        selectVideo2FrameLayout.setOnClickListener{
+        selectVideo2FrameLayout.setOnClickListener {
             selectVideo2Launcher.launch(getSelectFileLauncherIntent("video/*"))
         }
-        selectVideo3FrameLayout.setOnClickListener{
+        selectVideo3FrameLayout.setOnClickListener {
             selectVideo3Launcher.launch(getSelectFileLauncherIntent("video/*"))
         }
-        selectVideo4FrameLayout.setOnClickListener{
+        selectVideo4FrameLayout.setOnClickListener {
             selectVideo4Launcher.launch(getSelectFileLauncherIntent("video/*"))
         }
 
-        selectCover1FrameLayout.setOnClickListener{
+        selectCover1FrameLayout.setOnClickListener {
             selectCover1Launcher.launch(getSelectFileLauncherIntent("image/*"))
         }
-        selectCover2FrameLayout.setOnClickListener{
+        selectCover2FrameLayout.setOnClickListener {
             selectCover2Launcher.launch(getSelectFileLauncherIntent("image/*"))
         }
-        selectCover3FrameLayout.setOnClickListener{
+        selectCover3FrameLayout.setOnClickListener {
             selectCover3Launcher.launch(getSelectFileLauncherIntent("image/*"))
         }
-        selectCover4FrameLayout.setOnClickListener{
+        selectCover4FrameLayout.setOnClickListener {
             selectCover4Launcher.launch(getSelectFileLauncherIntent("image/*"))
         }
 
-        video1VisibilityImageView.setOnClickListener{
+        video1VisibilityImageView.setOnClickListener {
             if (video1Visibility) {
                 video1VisibilityImageView.setImageResource(R.drawable.hidden)
                 video1VisibilityImageView.colorFilter =
@@ -394,7 +402,7 @@ class SettingsActivity : AppCompatActivity() {
 
             updateSettingsSaved()
         }
-        video2VisibilityImageView.setOnClickListener{
+        video2VisibilityImageView.setOnClickListener {
             if (video2Visibility) {
                 video2VisibilityImageView.setImageResource(R.drawable.hidden)
                 video2VisibilityImageView.colorFilter =
@@ -409,7 +417,7 @@ class SettingsActivity : AppCompatActivity() {
 
             updateSettingsSaved()
         }
-        video3VisibilityImageView.setOnClickListener{
+        video3VisibilityImageView.setOnClickListener {
             if (video3Visibility) {
                 video3VisibilityImageView.setImageResource(R.drawable.hidden)
                 video3VisibilityImageView.colorFilter =
@@ -424,7 +432,7 @@ class SettingsActivity : AppCompatActivity() {
 
             updateSettingsSaved()
         }
-        video4VisibilityImageView.setOnClickListener{
+        video4VisibilityImageView.setOnClickListener {
             if (video4Visibility) {
                 video4VisibilityImageView.setImageResource(R.drawable.hidden)
                 video4VisibilityImageView.colorFilter =
@@ -441,7 +449,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         // Audio
-        audioLevelSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+        audioLevelSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, p2: Boolean) {
                 audioLevel = progress
                 updateSettingsSaved()
@@ -453,7 +461,7 @@ class SettingsActivity : AppCompatActivity() {
         })
 
         // Password
-        passwordEditText.addTextChangedListener(object: TextWatcher {
+        passwordEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 passwordText = passwordEditText.text.toString()
                 updateSettingsSaved()
@@ -464,7 +472,7 @@ class SettingsActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
-        passwordVisibilityImageView.setOnClickListener{
+        passwordVisibilityImageView.setOnClickListener {
             if (passwordVisibility) {
                 passwordVisibilityImageView.setImageResource(R.drawable.hidden)
                 passwordEditText.inputType =
@@ -501,7 +509,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun saveSettings() {
         // save settings to shared preferences
-        with (settingsSharedPrefs.edit()) {
+        with(settingsSharedPrefs.edit()) {
             // Videos
             putString(SettingsUtils.video1PathId, video1Path)
             putString(SettingsUtils.video2PathId, video2Path)

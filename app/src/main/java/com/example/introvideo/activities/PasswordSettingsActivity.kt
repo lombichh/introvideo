@@ -36,11 +36,11 @@ class PasswordSettingsActivity : AppCompatActivity() {
         val visibilityImageView: ImageView = findViewById(R.id.password_visibility_imageview)
         val enterFrameLayout: FrameLayout = findViewById(R.id.enter_framelayout)
 
-        backImageView.setOnClickListener{
+        backImageView.setOnClickListener {
             finish()
         }
 
-        visibilityImageView.setOnClickListener{
+        visibilityImageView.setOnClickListener {
             // change password visibility
             if (passwordVisibility) {
                 visibilityImageView.setImageResource(R.drawable.hidden)
@@ -67,7 +67,7 @@ class PasswordSettingsActivity : AppCompatActivity() {
             }
         }
 
-        enterFrameLayout.setOnClickListener{
+        enterFrameLayout.setOnClickListener {
             // check if password is correct
             // if correct, open settings activity
             // else, show error toast
@@ -76,8 +76,7 @@ class PasswordSettingsActivity : AppCompatActivity() {
             if (SettingsUtils.isPasswordCorrect(this, enteredPassword)) {
                 startActivity(Intent(this, SettingsActivity::class.java))
                 finish()
-            }
-            else Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show()
         }
 
         passwordEditText.requestFocus()

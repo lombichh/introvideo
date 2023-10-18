@@ -29,7 +29,8 @@ class VideoUtils {
 
             if (DocumentsContract.isDocumentUri(context, uri)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
-                    && uri.authority == "com.android.providers.media.documents") {
+                    && uri.authority == "com.android.providers.media.documents"
+                ) {
                     val docId = DocumentsContract.getDocumentId(uri)
                     val split = docId.split(":".toRegex()).toTypedArray()
                     val type = split[0]
@@ -49,8 +50,10 @@ class VideoUtils {
             return null
         }
 
-        private fun getDataColumn(context: Context, uri: Uri, selection: String?,
-                                  selectionArgs: Array<String>?): String? {
+        private fun getDataColumn(
+            context: Context, uri: Uri, selection: String?,
+            selectionArgs: Array<String>?
+        ): String? {
             val column = "_data"
             val projection = arrayOf(column)
             context.contentResolver.query(uri, projection, selection, selectionArgs, null)?.use {

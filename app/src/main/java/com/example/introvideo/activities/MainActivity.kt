@@ -208,11 +208,13 @@ class MainActivity : AppCompatActivity() {
 
         // collapse TableRow if his child have visibility = GONE
         if (video1Layout.visibility == ConstraintLayout.GONE
-            && video2Layout.visibility == ConstraintLayout.GONE) {
+            && video2Layout.visibility == ConstraintLayout.GONE
+        ) {
             firstTableRow.visibility = TableRow.GONE
         } else firstTableRow.visibility = TableRow.VISIBLE
         if (video3Layout.visibility == ConstraintLayout.GONE
-            && video4Layout.visibility == ConstraintLayout.GONE) {
+            && video4Layout.visibility == ConstraintLayout.GONE
+        ) {
             secondTableRow.visibility = TableRow.GONE
         } else secondTableRow.visibility = TableRow.VISIBLE
     }
