@@ -1,5 +1,6 @@
 package com.example.introvideo.activities
 
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
@@ -46,6 +47,17 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     private fun initVideo() {
         videoView.setVideoPath(videoPath)
+
+        /*val mediaController = MediaController(this)
+        videoView.setMediaController(mediaController)*/
+
+        // get back to main activity when video ends
+        videoView.setOnCompletionListener(object : MediaPlayer.OnCompletionListener {
+            override fun onCompletion(mp: MediaPlayer) {
+                finish()
+            }
+        })
+
         videoView.start()
     }
 
