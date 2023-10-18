@@ -3,6 +3,7 @@ package com.example.introvideo.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Base64
+import java.math.BigInteger
 import java.security.MessageDigest
 
 class SettingsUtils {
@@ -40,8 +41,12 @@ class SettingsUtils {
 
         private fun hashPassword(password: String): String {
             val messageDigest = MessageDigest.getInstance("SHA-256")
-            val hashedPassword = messageDigest.digest(password.toByteArray())
-            return Base64.encodeToString(hashedPassword, Base64.DEFAULT)
+            messageDigest.update(password.toByteArray(Charsets.UTF_8))
+
+            val hashedPassword = messageDigest.digest()
+            val hashedPasswordString = BigInteger(1, hashedPassword).toString()
+
+            return hashedPasswordString
         }
 
         fun savePassword(context: Context, newPassword: String) {

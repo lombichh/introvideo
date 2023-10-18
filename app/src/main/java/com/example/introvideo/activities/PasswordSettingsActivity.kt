@@ -73,8 +73,10 @@ class PasswordSettingsActivity : AppCompatActivity() {
             // else, show error toast
             val enteredPassword: String = passwordEditText.text.toString()
 
-            if (SettingsUtils.isPasswordCorrect(this, enteredPassword))
+            if (SettingsUtils.isPasswordCorrect(this, enteredPassword)) {
                 startActivity(Intent(this, SettingsActivity::class.java))
+                finish()
+            }
             else Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show()
         }
 
