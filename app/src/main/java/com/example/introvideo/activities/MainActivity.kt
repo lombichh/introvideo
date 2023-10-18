@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
 import android.widget.ImageView
+import android.widget.TableRow
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity() {
 
     // views
     private lateinit var settingsImageView: ImageView
+
+    private lateinit var firstTableRow: TableRow
+    private lateinit var secondTableRow: TableRow
 
     private lateinit var video1Layout: ConstraintLayout
     private lateinit var video2Layout: ConstraintLayout
@@ -122,6 +126,9 @@ class MainActivity : AppCompatActivity() {
     private fun initViewVars() {
         settingsImageView = findViewById(R.id.settings_imageview)
 
+        firstTableRow = findViewById(R.id.first_tablerow)
+        secondTableRow = findViewById(R.id.second_tablerow)
+
         video1Layout = findViewById(R.id.video1_constraintlayout)
         video2Layout = findViewById(R.id.video2_constraintlayout)
         video3Layout = findViewById(R.id.video3_constraintlayout)
@@ -149,7 +156,7 @@ class MainActivity : AppCompatActivity() {
             if (cover1File.exists()) {
                 val cover1Bitmap = BitmapFactory.decodeFile(cover1File.absolutePath)
                 video1ImageView.setImageBitmap(cover1Bitmap)
-            }
+            } else video1ImageView.setBackgroundColor(getColor(R.color.gray))
 
             video1Layout.visibility = ConstraintLayout.VISIBLE
         } else video1Layout.visibility = ConstraintLayout.GONE
@@ -164,7 +171,7 @@ class MainActivity : AppCompatActivity() {
             if (cover2File.exists()) {
                 val cover2Bitmap = BitmapFactory.decodeFile(cover2File.absolutePath)
                 video2ImageView.setImageBitmap(cover2Bitmap)
-            }
+            } else video2ImageView.setBackgroundColor(getColor(R.color.gray))
 
             video2Layout.visibility = ConstraintLayout.VISIBLE
         } else video2Layout.visibility = ConstraintLayout.GONE
@@ -179,7 +186,7 @@ class MainActivity : AppCompatActivity() {
             if (cover3File.exists()) {
                 val cover3Bitmap = BitmapFactory.decodeFile(cover3File.absolutePath)
                 video3ImageView.setImageBitmap(cover3Bitmap)
-            }
+            } else video3ImageView.setBackgroundColor(getColor(R.color.gray))
 
             video3Layout.visibility = ConstraintLayout.VISIBLE
         } else video3Layout.visibility = ConstraintLayout.GONE
@@ -194,10 +201,20 @@ class MainActivity : AppCompatActivity() {
             if (cover4File.exists()) {
                 val cover4Bitmap = BitmapFactory.decodeFile(cover4File.absolutePath)
                 video4ImageView.setImageBitmap(cover4Bitmap)
-            }
+            } else video4ImageView.setBackgroundColor(getColor(R.color.gray))
 
             video4Layout.visibility = ConstraintLayout.VISIBLE
         } else video4Layout.visibility = ConstraintLayout.GONE
+
+        // collapse TableRow if his child have visibility = GONE
+        if (video1Layout.visibility == ConstraintLayout.GONE
+            && video2Layout.visibility == ConstraintLayout.GONE) {
+            firstTableRow.visibility = TableRow.GONE
+        } else firstTableRow.visibility = TableRow.VISIBLE
+        if (video3Layout.visibility == ConstraintLayout.GONE
+            && video4Layout.visibility == ConstraintLayout.GONE) {
+            secondTableRow.visibility = TableRow.GONE
+        } else secondTableRow.visibility = TableRow.VISIBLE
     }
 
     private fun startVideoActivity(videoPath: String) {

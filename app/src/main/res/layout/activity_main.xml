@@ -42,11 +42,13 @@
         app:layout_constraintTop_toBottomOf="@+id/title_imageview">
 
         <TableRow
+            android:id="@+id/first_tablerow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/video1_constraintlayout"
@@ -119,11 +121,13 @@
         </TableRow>
 
         <TableRow
+            android:id="@+id/second_tablerow"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="25dp"
             android:layout_marginBottom="25dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/video3_constraintlayout"
