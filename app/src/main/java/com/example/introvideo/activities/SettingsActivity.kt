@@ -392,21 +392,6 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         video1VisibilityImageView.setOnClickListener{
-            Log.d("lombichh", "--- outside result")
-            Log.d("lombichh", "folder path: content://com.android.externalstorage.documents/tree/primary%3AMovies")
-            val treeUri: Uri = Uri.parse("content://com.android.externalstorage.documents/tree/primary%3AMovies")
-            val documentFile = DocumentFile.fromTreeUri(this, treeUri)
-
-            Log.d("lombichh", "exists: ${documentFile?.exists()}")
-            if (documentFile != null && documentFile.isDirectory) {
-                val files = documentFile.listFiles()
-                for (file in files) {
-                    if (file.isFile && isVideoFile(file.name!!)) {
-                        Log.d("lombichh", "video file: ${file.name}")
-                    }
-                }
-            }
-
             if (video1Visibility) {
                 video1VisibilityImageView.setImageResource(R.drawable.hidden)
                 video1VisibilityImageView.colorFilter =
