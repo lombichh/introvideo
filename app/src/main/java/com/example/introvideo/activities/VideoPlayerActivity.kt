@@ -44,7 +44,8 @@ class VideoPlayerActivity : AppCompatActivity() {
 
         // set device audio level
         val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioLevel, 0)
+        val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, (maxVolume * audioLevel) / 100, 0)
 
         // keep video aspect ratio
         videoView.setOnPreparedListener { mediaPlayer ->
