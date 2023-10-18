@@ -297,8 +297,10 @@ class SettingsActivity : AppCompatActivity() {
         selectCover1Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                // update settings vars and ui
-                cover1Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
+                // add new image in cache
+                cover1Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+
+                // update ui
                 cover1PathTextView.text = cover1Path
                 updateSettingsSaved()
             }
@@ -306,8 +308,10 @@ class SettingsActivity : AppCompatActivity() {
         selectCover2Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                // update settings vars and ui
-                cover2Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
+                // add new image in cache
+                cover2Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+
+                // update ui
                 cover2PathTextView.text = cover2Path
                 updateSettingsSaved()
             }
@@ -315,8 +319,10 @@ class SettingsActivity : AppCompatActivity() {
         selectCover3Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                // update settings vars and ui
-                cover3Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
+                // add new image in cache
+                cover3Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+
+                // update ui
                 cover3PathTextView.text = cover3Path
                 updateSettingsSaved()
             }
@@ -324,8 +330,10 @@ class SettingsActivity : AppCompatActivity() {
         selectCover4Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                // update settings vars and ui
-                cover4Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
+                // add new image in cache
+                cover4Path = FileUtils.copyFileInCache(this, result.data!!.data).toString()
+
+                // update ui
                 cover4PathTextView.text = cover4Path
                 updateSettingsSaved()
             }
