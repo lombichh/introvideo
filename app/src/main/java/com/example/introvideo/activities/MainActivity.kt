@@ -7,21 +7,17 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.documentfile.provider.DocumentFile
 import com.example.introvideo.R
 import com.example.introvideo.utils.SettingsUtils
 import com.google.android.material.imageview.ShapeableImageView
 import java.io.File
-import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,6 +52,8 @@ class MainActivity : AppCompatActivity() {
     private var video2Visibility: Boolean = true
     private var video3Visibility: Boolean = true
     private var video4Visibility: Boolean = true
+
+    private var audioLevel: Int = 75
 
     // activity result launchers
     private lateinit var requestPermissionsLauncher: ActivityResultLauncher<Array<String>>
@@ -112,6 +110,8 @@ class MainActivity : AppCompatActivity() {
             settingsSharedPrefs.getBoolean(SettingsUtils.video3VisibilityId, true)
         video4Visibility =
             settingsSharedPrefs.getBoolean(SettingsUtils.video4VisibilityId, true)
+
+        audioLevel = settingsSharedPrefs.getInt(SettingsUtils.audioLevelId, 75)
     }
 
     private fun initUi() {
@@ -203,6 +203,7 @@ class MainActivity : AppCompatActivity() {
     private fun startVideoActivity(videoPath: String) {
         val intent = Intent(this, VideoPlayerActivity::class.java)
         intent.putExtra("video_path", videoPath)
+        intent.putExtra("audio_level", audioLevel)
         startActivity(intent)
     }
 

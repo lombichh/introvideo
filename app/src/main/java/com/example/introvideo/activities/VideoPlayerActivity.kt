@@ -1,5 +1,7 @@
 package com.example.introvideo.activities
 
+import android.content.Context
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -23,6 +25,7 @@ class VideoPlayerActivity : AppCompatActivity() {
 
     // video vars
     private lateinit var videoPath: String
+    private var audioLevel: Int = 75
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,7 @@ class VideoPlayerActivity : AppCompatActivity() {
 
         if (extras != null) {
             videoPath = extras.getString("video_path").toString()
+            audioLevel = extras.getInt("audio_level")
         }
     }
 
@@ -48,17 +52,14 @@ class VideoPlayerActivity : AppCompatActivity() {
     private fun initVideo() {
         videoView.setVideoPath(videoPath)
 
-        /*val mediaController = MediaController(this)
-        videoView.setMediaController(mediaController)*/
-
-        // get back to main activity when video ends
-        videoView.setOnCompletionListener(object : MediaPlayer.OnCompletionListener {
-            override fun onCompletion(mp: MediaPlayer) {
-                finish()
-            }
-        })
+        // set device audio level
+        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioLevel, 0)
 
         videoView.start()
+
+        // get back to main activity when video ends
+        videoView.setOnCompletionListener { finish() }
     }
 
 }

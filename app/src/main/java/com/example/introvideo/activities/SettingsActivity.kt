@@ -8,35 +8,27 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.Typeface
 import android.graphics.drawable.LayerDrawable
-import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
-import android.widget.VideoView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.documentfile.provider.DocumentFile
 import com.example.introvideo.R
 import com.example.introvideo.utils.FileUtils
 import com.example.introvideo.utils.SettingsUtils
-import com.example.introvideo.utils.VideoUtils
-import java.util.*
 
 
 class SettingsActivity : AppCompatActivity() {
-    private lateinit var videoView: VideoView
-
     private lateinit var settingsSharedPrefs: SharedPreferences
 
     // views
@@ -236,6 +228,8 @@ class SettingsActivity : AppCompatActivity() {
         val customSeekBarDrawable = audioLevelSeekBar.progressDrawable as LayerDrawable
         customSeekBarDrawable.setLayerHeight(0, 15) // background height
         customSeekBarDrawable.setLayerHeight(1, 15) // progress height
+
+        audioLevelSeekBar.progress = audioLevel
     }
 
     private fun initSelectPathLaunchers() {
@@ -338,12 +332,6 @@ class SettingsActivity : AppCompatActivity() {
                 updateSettingsSaved()
             }
         }
-    }
-
-    private fun isVideoFile(fileName: String): Boolean {
-        val videoExtensions = arrayOf("mp4", "avi", "mkv", "mov", "wmv", "flv")
-        val extension = fileName.substringAfterLast(".")
-        return extension.lowercase(Locale.ROOT) in videoExtensions
     }
 
     private fun initOnClickListeners() {
