@@ -59,37 +59,16 @@ class MainActivity : AppCompatActivity() {
 
     private var audioLevel: Int = 75
 
-    // activity result launchers
-    private lateinit var requestPermissionsLauncher: ActivityResultLauncher<Array<String>>
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        initPermissionsLauncher()
     }
 
     override fun onResume() {
         super.onResume()
 
-        launchPermissionsRequest()
-    }
-
-    private fun initPermissionsLauncher() {
-        requestPermissionsLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions())
-            { results ->
-                loadSharedPreferences()
-                initUi()
-            }
-    }
-
-    private fun launchPermissionsRequest() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requestPermissionsLauncher.launch(arrayOf(READ_MEDIA_IMAGES, READ_MEDIA_VIDEO))
-        } else {
-            requestPermissionsLauncher.launch(arrayOf(READ_EXTERNAL_STORAGE))
-        }
+        loadSharedPreferences()
+        initUi()
     }
 
     private fun loadSharedPreferences() {
