@@ -65,8 +65,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:background="@color/gray"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/image"
                     app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                 <ImageView
@@ -99,8 +99,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:background="@color/gray"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/image"
                     app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                 <ImageView
@@ -142,8 +142,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:background="@color/gray"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/image"
                     app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                 <ImageView
@@ -176,8 +176,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:adjustViewBounds="true"
+                    android:background="@color/gray"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/image"
                     app:shapeAppearanceOverlay="@style/RoundedSquare" />
 
                 <ImageView

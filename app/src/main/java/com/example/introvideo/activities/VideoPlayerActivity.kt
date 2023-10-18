@@ -56,6 +56,23 @@ class VideoPlayerActivity : AppCompatActivity() {
         val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioLevel, 0)
 
+        // keep video aspect ratio
+        videoView.setOnPreparedListener { mediaPlayer ->
+            val videoWidth = mediaPlayer.videoWidth
+            val videoHeight = mediaPlayer.videoHeight
+            val videoProportion = videoWidth.toFloat() / videoHeight.toFloat()
+            val screenWidth = resources.displayMetrics.widthPixels
+            val screenHeight = resources.displayMetrics.heightPixels
+            val screenProportion = screenWidth.toFloat() / screenHeight.toFloat()
+            val lp = videoView.layoutParams
+            if (videoProportion > screenProportion) {
+                lp.height = (screenWidth / videoProportion).toInt()
+            } else {
+                lp.height = screenHeight
+            }
+            videoView.layoutParams = lp
+        }
+
         // start video
         videoView.start()
 
