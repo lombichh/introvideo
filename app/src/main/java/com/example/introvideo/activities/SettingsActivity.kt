@@ -21,6 +21,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.VideoView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -28,10 +29,11 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.documentfile.provider.DocumentFile
 import com.example.introvideo.R
 import com.example.introvideo.utils.SettingsUtils
-import java.io.File
+import com.example.introvideo.utils.VideoUtils
 import java.util.*
 
 class SettingsActivity : AppCompatActivity() {
+    private lateinit var videoView: VideoView
 
     private lateinit var settingsSharedPrefs: SharedPreferences
 
@@ -93,15 +95,15 @@ class SettingsActivity : AppCompatActivity() {
     private var passwordVisibility: Boolean = false
 
     // activity result launchers
-    private lateinit var selectVideo1PathLauncher: ActivityResultLauncher<Intent>
-    private lateinit var selectVideo2PathLauncher: ActivityResultLauncher<Intent>
-    private lateinit var selectVideo3PathLauncher: ActivityResultLauncher<Intent>
-    private lateinit var selectVideo4PathLauncher: ActivityResultLauncher<Intent>
+    private lateinit var selectVideo1Launcher: ActivityResultLauncher<Intent>
+    private lateinit var selectVideo2Launcher: ActivityResultLauncher<Intent>
+    private lateinit var selectVideo3Launcher: ActivityResultLauncher<Intent>
+    private lateinit var selectVideo4Launcher: ActivityResultLauncher<Intent>
 
-    private lateinit var selectCover1PathLauncher: ActivityResultLauncher<Intent>
-    private lateinit var selectCover2PathLauncher: ActivityResultLauncher<Intent>
-    private lateinit var selectCover3PathLauncher: ActivityResultLauncher<Intent>
-    private lateinit var selectCover4PathLauncher: ActivityResultLauncher<Intent>
+    private lateinit var selectCover1Launcher: ActivityResultLauncher<Intent>
+    private lateinit var selectCover2Launcher: ActivityResultLauncher<Intent>
+    private lateinit var selectCover3Launcher: ActivityResultLauncher<Intent>
+    private lateinit var selectCover4Launcher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,6 +143,8 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun initViewVars() {
+        videoView = findViewById(R.id.videoView)
+
         // Toolbar
         backImageView = findViewById(R.id.back_imageview)
         saveButton = findViewById(R.id.save_button)
@@ -236,50 +240,41 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun initSelectPathLaunchers() {
         // videos
-        selectVideo1PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        selectVideo1Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video1Path = result.data?.data?.path.toString()
+                video1Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
                 video1PathTextView.text = video1Path
                 updateSettingsSaved()
             }
         }
-        selectVideo2PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        selectVideo2Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video2Path = result.data?.data?.path.toString()
+                video2Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
                 video2PathTextView.text = video2Path
                 updateSettingsSaved()
             }
         }
-        selectVideo3PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        selectVideo3Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video3Path = result.data?.data.toString()
-
-                // check if file exists for debug
-                val selectedFileUri: Uri? = Uri.parse(video3Path)
-                if (selectedFileUri != null) {
-                    val documentFile = DocumentFile.fromSingleUri(this, selectedFileUri)
-                    Log.d("lombichh", "folder path: $video3Path")
-                    Log.d("lombichh", "exists: ${documentFile?.exists()}")
-                }
-
+                video3Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
                 video3PathTextView.text = video3Path
                 updateSettingsSaved()
             }
         }
-        selectVideo4PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        selectVideo4Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                video4Path = result.data?.data?.path.toString()
+                video4Path = VideoUtils.getPhysicalPath(this, result.data?.data).toString()
                 video4PathTextView.text = video4Path
                 updateSettingsSaved()
             }
         }
 
         // covers
-        selectCover1PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        selectCover1Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 cover1Path = result.data?.data?.path.toString()
@@ -287,7 +282,7 @@ class SettingsActivity : AppCompatActivity() {
                 updateSettingsSaved()
             }
         }
-        selectCover2PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        selectCover2Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 cover2Path = result.data?.data?.path.toString()
@@ -295,7 +290,7 @@ class SettingsActivity : AppCompatActivity() {
                 updateSettingsSaved()
             }
         }
-        selectCover3PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        selectCover3Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 cover3Path = result.data?.data.toString()
@@ -308,7 +303,7 @@ class SettingsActivity : AppCompatActivity() {
                 updateSettingsSaved()
             }
         }
-        selectCover4PathLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+        selectCover4Launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
         { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 cover4Path = result.data?.data?.path.toString()
@@ -344,49 +339,39 @@ class SettingsActivity : AppCompatActivity() {
 
         // Videos
         selectVideo1FrameLayout.setOnClickListener{
-            // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectVideo1PathLauncher.launch(intent)
+            selectVideo1Launcher.launch(getSelectFileLauncherIntent("video/*"))
         }
         selectVideo2FrameLayout.setOnClickListener{
-            // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectVideo2PathLauncher.launch(intent)
+            selectVideo2Launcher.launch(getSelectFileLauncherIntent("video/*"))
         }
         selectVideo3FrameLayout.setOnClickListener{
-            // launch video picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "video/*"
-            selectVideo3PathLauncher.launch(intent)
+            selectVideo3Launcher.launch(getSelectFileLauncherIntent("video/*"))
         }
         selectVideo4FrameLayout.setOnClickListener{
-            // launch folder picker
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectVideo4PathLauncher.launch(intent)
+            selectVideo4Launcher.launch(getSelectFileLauncherIntent("video/*"))
         }
 
         selectCover1FrameLayout.setOnClickListener{
             // launch folder picker
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectCover1PathLauncher.launch(intent)
+            selectCover1Launcher.launch(intent)
         }
         selectCover2FrameLayout.setOnClickListener{
             // launch folder picker
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectCover2PathLauncher.launch(intent)
+            selectCover2Launcher.launch(intent)
         }
         selectCover3FrameLayout.setOnClickListener{
             // launch folder picker
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             intent.type = "image/*"
-            selectCover3PathLauncher.launch(intent)
+            selectCover3Launcher.launch(intent)
         }
         selectCover4FrameLayout.setOnClickListener{
             // launch folder picker
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-            selectCover4PathLauncher.launch(intent)
+            selectCover4Launcher.launch(intent)
         }
 
         video1VisibilityImageView.setOnClickListener{
@@ -514,6 +499,14 @@ class SettingsActivity : AppCompatActivity() {
                 passwordVisibility = true
             }
         }
+    }
+
+    private fun getSelectFileLauncherIntent(intentType: String): Intent {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = intentType
+
+        return intent
     }
 
     private fun saveSettings() {
