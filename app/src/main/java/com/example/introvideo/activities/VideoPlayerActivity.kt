@@ -56,6 +56,7 @@ class VideoPlayerActivity : AppCompatActivity() {
         val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, audioLevel, 0)
 
+        // start video
         videoView.start()
 
         // get back to main activity when video ends
